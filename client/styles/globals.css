@@ -1,3 +1,6 @@
+:root {
+  --gray-color: rgb(107, 107, 107);
+}
 html,
 body {
   padding: 0;
@@ -16,4 +19,17 @@ a {
 }
 .container {
   margin: 85px 0;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.card {
+  max-width: 1000px;
+  width: 90%;
+  padding: 30px;
+  margin: 0 auto;
 }

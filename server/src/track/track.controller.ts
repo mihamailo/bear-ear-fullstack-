@@ -14,12 +14,13 @@ export class TrackController {
 
     @Post()
     @UseInterceptors(FileFieldsInterceptor([
-        { name: 'picture', maxCount: 1 },
+        { name: 'image', maxCount: 1 },
         { name: 'audio', maxCount: 1 },
     ]))
     create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-        const { picture, audio } = files
-        return this.trackService.create(dto, picture[0], audio[0]);
+        const { image, audio } = files
+
+        return this.trackService.create(dto, image[0], audio[0]);
     }
 
     @Get()

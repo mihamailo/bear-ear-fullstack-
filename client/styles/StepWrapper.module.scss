@@ -1,0 +1,10 @@
+.step {
+    margin: 70px 0;
+    height: 300px;
+    &Card {
+        width: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

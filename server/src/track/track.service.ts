@@ -14,15 +14,15 @@ export class TrackService {
         @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
         private fileService: FileService) { }
 
-    async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
+    async create(dto: CreateTrackDto, image, audio): Promise<Track> {
         const pathAudio = this.fileService.createFile(FileType.AUDIO, audio)
-        const pathPicture = this.fileService.createFile(FileType.IMAGE, picture)
-        const track = await this.trackModel.create({ ...dto, listens: 0, audio: pathAudio, picture: pathPicture });
+        const pathImage = this.fileService.createFile(FileType.IMAGE, image)
+        const track = await this.trackModel.create({ ...dto, listens: 0, audio: pathAudio, image: pathImage });
 
         return track;
     }
 
-    async getAll(count = 10, offset = 0): Promise<Track[]> {
+    async getAll(count = 20, offset = 0): Promise<Track[]> {
         const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
         return tracks;
     }

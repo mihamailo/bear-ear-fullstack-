@@ -1,0 +1,44 @@
+.lyrics {
+    font-size: 18px;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+.image {
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.name {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.artist {
+    font-size: 14px;
+    color: var(--gray-color);
+}
+
+.listens {
+    font-size: 12px;
+}
+
+.nameInput {
+    margin-bottom: 20px;
+}
+
+.comments {
+    &Form {
+        margin-bottom: 30px;
+    }
+    &Body {
+        & + & {
+            margin-top: 20px;
+        }
+    }
+    &Author {
+        font-weight: 700;
+    }
+    &Text {
+    }
+}

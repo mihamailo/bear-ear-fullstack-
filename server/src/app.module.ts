@@ -5,6 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as path from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
+console.log("thats path " + path.resolve(__dirname, 'static'));
+
+
 @Module({
     imports: [
         ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static') }),

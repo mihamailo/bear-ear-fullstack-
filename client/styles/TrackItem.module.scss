@@ -1,5 +1,26 @@
 .track {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
     & + & {
         margin-top: 10px;
+    }
+    &Info {
+        max-width: 200px;
+        overflow: hidden;
+        margin-left: 10px;
+        margin-right: auto;
+    }
+    &Name {
+        font-size: 16px;
+    }
+    &Artist {
+        font-size: 12px;
+        white-space: nowrap;
+        color: var(--gray-color);
+    }
+    &TimeLine {
+        margin-right: 10px;
     }
 }
