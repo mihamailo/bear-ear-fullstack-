@@ -16,9 +16,6 @@ const PageTrack = ({ serverTrack }) => {
     const text = useInput('')
     const router = useRouter()
 
-    console.log(track.comments.map(comment => comment));
-
-
     const addComment = async () => {
         try {
             const response = await axios.post(baseUrl + 'tracks/comment', {
@@ -64,7 +61,7 @@ const PageTrack = ({ serverTrack }) => {
                     />
                     <TextField
                         {...text}
-                        label='Good(not bad) comment'
+                        label='Your comment'
                         fullWidth
                         multiline
                         rows={3}

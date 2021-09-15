@@ -9,7 +9,6 @@ import { Delete } from '@material-ui/icons';
 import { useActions } from '../hooks/useAction';
 import { baseUrl } from './baseURL';
 
-
 interface TrackItemProps {
     track: ITrack;
     active?: boolean;
@@ -18,14 +17,16 @@ interface TrackItemProps {
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) => {
     const router = useRouter()
-    const { setActive, pauseTrack } = useActions()
+    const { setActive, pauseTrack, playTrack } = useActions()
 
     const play = (e) => {
         e.stopPropagation()
-        if (pause && !active) {
+        if (!active) {
             setActive(track)
+        }
+        if (pause) {
+            playTrack()
         } else {
-            audio.pause()
             pauseTrack()
         }
     }
@@ -50,7 +51,4 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) =
         </Card>
     )
 }
-
-
-
 export default TrackItem;
