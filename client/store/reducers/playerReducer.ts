@@ -6,10 +6,14 @@ const initialState: PlayerState = {
     duration: 0,
     currentTime: 0,
     pause: true,
+    audio: null,
 }
+
 
 export const playerReducer = (state = initialState, action: PlayerAction) => {
     switch (action.type) {
+        case PlayerActionTypes.SET_AUDIO:
+            return { ...state, audio: action.payload };
         case PlayerActionTypes.PLAY:
             return { ...state, pause: false };
         case PlayerActionTypes.PAUSE:

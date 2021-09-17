@@ -8,6 +8,11 @@ import { useRouter } from 'next/dist/client/router';
 import { Delete } from '@material-ui/icons';
 import { useActions } from '../hooks/useAction';
 import { baseUrl } from './baseURL';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import useFormat from '../hooks/useFormat'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { fetchTracks } from '../store/actions-creator/tracks';
 
 interface TrackItemProps {
     track: ITrack;
@@ -17,18 +22,30 @@ interface TrackItemProps {
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) => {
     const router = useRouter()
-    const { setActive, pauseTrack, playTrack } = useActions()
-
+    const { audio, currentTime, duration } = useTypedSelector(state => state.player)
+    const { setActive, pauseTrack, playTrack, setAudio } = useActions()
+    const dispatch = useDispatch()
     const play = (e) => {
         e.stopPropagation()
-        if (!active) {
+        if (active) {
+            console.log('active');
+
+            if (pause) {
+                playTrack()
+                audio.play()
+            } else {
+                pauseTrack()
+                audio.pause()
+            }
+        } else {
             setActive(track)
         }
-        if (pause) {
-            playTrack()
-        } else {
-            pauseTrack()
-        }
+    }
+
+    const deleteItem = async (e) => {
+        e.stopPropagation()
+        await axios.delete(`${baseUrl}/tracks/` + track._id)
+        await dispatch(fetchTracks())
     }
 
     return (
@@ -39,13 +56,23 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) =
                     : <PlayArrow />
                 }
             </IconButton>
-            <img style={{ objectFit: 'cover' }} width={60} height={60} src={baseUrl + track.image} />
+            <img style={{ objectFit: 'cover' }} width={60} height={60} src={baseUrl + '/' + track.image} />
             <Grid className={s.trackInfo} container direction='column'>
                 <div className={s.trackArtist}>{track.artist}</div>
                 <div className={s.trackName}>{track.name}</div>
             </Grid>
-            {active && <div className={s.trackTimeLine}>00:40 / 3:12</div>}
-            <IconButton onClick={e => e.stopPropagation()}>
+
+            {active &&
+                <div className={s.trackTimeLine}>
+                    <div style={{ whiteSpace: 'nowrap', width: '50px', textAlign: 'center' }}>
+                        {useFormat(currentTime)}
+                    </div>
+                    <div>/</div>
+                    <div style={{ whiteSpace: 'nowrap', width: '50px', textAlign: 'center' }}>
+                        {useFormat(duration)}
+                    </div>
+                </div>}
+            <IconButton onClick={deleteItem}>
                 <Delete />
             </IconButton>
         </Card>

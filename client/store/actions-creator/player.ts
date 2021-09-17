@@ -1,6 +1,9 @@
 import { ITrack } from './../../types/track';
 import { PlayerActionTypes } from './../../types/player';
 
+export const setAudio = (payload: HTMLAudioElement) => {
+    return { type: PlayerActionTypes.SET_AUDIO, payload }
+}
 
 export const playTrack = () => {
     return { type: PlayerActionTypes.PLAY }

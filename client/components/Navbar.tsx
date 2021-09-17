@@ -43,6 +43,7 @@ export default function Navbar() {
             <CssBaseline />
             <AppBar
                 position="fixed"
+                style={{ background: '#000' }}
             >
                 <Toolbar>
                     <IconButton

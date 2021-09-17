@@ -1,50 +1,45 @@
 import { Grid, IconButton } from '@material-ui/core'
 import { Pause, PlayArrow, VolumeOff, VolumeUp } from '@material-ui/icons'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import s from '../styles/Player.module.scss';
 import TrackProgress from './TrackProgress';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useAction';
 import { baseUrl } from './baseURL';
 
-let audio
-let firstplay = 0
 const Player = () => {
-    const { pause, volume, active, duration, currentTime } = useTypedSelector(state => state.player)
-    const { pauseTrack, playTrack, setVolume, setCurrentTime, setDuration } = useActions()
+    const { pause, volume, active, duration, currentTime, audio } = useTypedSelector(state => state.player)
+    const { pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setAudio } = useActions()
     const [volumeOff, setVolumeOff] = useState<boolean>(true)
+    const isInitialMount = useRef(true);
 
     useEffect(() => {
-        if (!audio) {
-            audio = new Audio()
-            return
+        console.log(active);
+        if (active) {
+            pauseTrack()
+            audio.pause()
         }
-        console.log('active ch')
-        setAudio()
-        // playToggle()
-    }, [active])
-
+    }, [])
 
     useEffect(() => {
-        if (firstplay > 0 && firstplay < 2) {
-            console.log('first play')
-            if (!audio) {
-                audio = new Audio()
-                return
-            }
-            setAudio()
+        if (!audio && pause) {
+            setAudio(new Audio())
+        }
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            if (active) return
+        }
+        // else {
+        //     _setAudio()
+        //     playTrack()
+        //     audio.play()
+        // }
+        if (active) {
+            _setAudio()
+            playTrack()
             audio.play()
         }
-        firstplay++
-        // if (active) {
-        //     if (pause) {
-        //         audio.play()
-        //     } else {
-        //         audio.pause()
-        //     }
-        // }
-    }, [pause])
-
+    }, [active])
 
     const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value)
@@ -53,30 +48,18 @@ const Player = () => {
     }
 
     const playToggle = () => {
-        if (active) {
-            console.log('play toggle fn');
-
-            if (pause) {
-                console.log('play');
-
-                playTrack()
-                audio.play()
-            } else {
-                console.log('pause');
-                pauseTrack()
-                audio.pause()
-            }
+        if (pause) {
+            playTrack()
+            audio.play()
+        } else {
+            pauseTrack()
+            audio.pause()
         }
     }
 
-    const playAudio = () => {
-        audio.play()
-    }
-
-    const setAudio = () => {
+    const _setAudio = () => {
         if (active) {
-            audio.src = baseUrl + active.audio
-
+            audio.src = baseUrl + "/" + active.audio
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
@@ -112,9 +95,9 @@ const Player = () => {
     return (
         <div className={s.player}>
             <IconButton onClick={playToggle} style={{ marginRight: '10px' }}>
-                {pause
-                    ? <PlayArrow />
-                    : <Pause />
+                {!pause
+                    ? <Pause />
+                    : <PlayArrow />
                 }
             </IconButton>
             <Grid className={s.trackInfo} container direction='column'>

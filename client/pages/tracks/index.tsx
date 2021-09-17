@@ -27,8 +27,6 @@ function index() {
         }, 500))
     }
 
-
-
     if (error) {
         return <MainLayout title={'Bear Ear - Track List'}>
             <div className='title'>{error}</div>

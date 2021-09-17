@@ -18,7 +18,7 @@ const PageTrack = ({ serverTrack }) => {
 
     const addComment = async () => {
         try {
-            const response = await axios.post(baseUrl + 'tracks/comment', {
+            const response = await axios.post(baseUrl + '/tracks/comment', {
                 username: username.value,
                 text: text.value,
                 trackId: track._id,
@@ -41,7 +41,7 @@ const PageTrack = ({ serverTrack }) => {
                 Go back
             </Button>
             <Grid container>
-                <img className={s.image} src={baseUrl + track.image} alt="" width={150} height={150} />
+                <img className={s.image} src={baseUrl + "/" + track.image} alt="" width={150} height={150} />
                 <div className={s.infoContainer}>
                     <div className={s.name}>{track.name}</div>
                     <div className={s.artist}>{track.artist}</div>
@@ -92,7 +92,7 @@ export default PageTrack
 
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const res = await axios.get(baseUrl + 'tracks/' + params.id)
+    const res = await axios.get(baseUrl + '/tracks/' + params.id)
 
     return {
         props: {
