@@ -1,1 +1,1 @@
-export const baseUrl: string = 'https://bear-ear-server.herokuapp.com'
+export const baseUrl: string = "http://localhost:8080";

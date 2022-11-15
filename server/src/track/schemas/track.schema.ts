@@ -6,26 +6,26 @@ export type TrackDocument = Track & Document;
 
 @Schema()
 export class Track {
-    @Prop()
-    name: string;
+  @Prop()
+  name: string;
 
-    @Prop()
-    artist: string;
+  @Prop()
+  artist: string;
 
-    @Prop()
-    text: string;
+  @Prop()
+  text: string;
 
-    @Prop()
-    listens: number;
+  @Prop()
+  listens: number;
 
-    @Prop()
-    image: string;
+  @Prop()
+  image: string;
 
-    @Prop()
-    audio: string;
+  @Prop()
+  audio: string;
 
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
-    comments: Comment[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
+  comments: Comment[];
 }
 
 export const TrackSchema = SchemaFactory.createForClass(Track);

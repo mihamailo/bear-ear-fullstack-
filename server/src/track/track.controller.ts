@@ -1,57 +1,64 @@
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { TrackService } from './track.service';
-import { Get, Controller, Post, Body, Delete, UseInterceptors, UploadedFiles, Query } from '@nestjs/common';
+import {
+  Get,
+  Controller,
+  Post,
+  Body,
+  Delete,
+  UseInterceptors,
+  UploadedFiles,
+  Query,
+} from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
-
 @Controller('/tracks')
 export class TrackController {
+  constructor(private trackService: TrackService) {}
 
-    constructor(private trackService: TrackService) { }
+  @Post()
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'image', maxCount: 1 },
+      { name: 'audio', maxCount: 1 },
+    ]),
+  )
+  create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
+    const { image, audio } = files;
 
-    @Post()
-    @UseInterceptors(FileFieldsInterceptor([
-        { name: 'image', maxCount: 1 },
-        { name: 'audio', maxCount: 1 },
-    ]))
-    create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-        const { image, audio } = files
+    return this.trackService.create(dto, image[0], audio[0]);
+  }
 
-        return this.trackService.create(dto, image[0], audio[0]);
-    }
+  @Get()
+  getAll(@Query('count') count: number, @Query('offset') offset: number) {
+    return this.trackService.getAll(count, offset);
+  }
 
-    @Get()
-    getAll(@Query('count') count: number,
-        @Query('offset') offset: number,) {
+  @Get('/search')
+  search(@Query('query') query: string) {
+    return this.trackService.search(query);
+  }
 
-        return this.trackService.getAll(count, offset)
-    }
+  @Get(':id')
+  getOne(@Param('id') id: ObjectId) {
+    return this.trackService.getOne(id);
+  }
 
-    @Get('/search')
-    search(@Query('query') query: string) {
-        return this.trackService.search(query)
-    }
+  @Delete(':id')
+  delete(@Param('id') id: ObjectId) {
+    return this.trackService.delete(id);
+  }
 
-    @Get(':id')
-    getOne(@Param('id') id: ObjectId) {
-        return this.trackService.getOne(id)
-    }
+  @Post('/comment')
+  addComment(@Body() dto: CreateCommentDto) {
+    return this.trackService.addComment(dto);
+  }
 
-    @Delete(':id')
-    delete(@Param('id') id: ObjectId) {
-        return this.trackService.delete(id)
-    }
-
-    @Post('/comment')
-    addComment(@Body() dto: CreateCommentDto) {
-        return this.trackService.addComment(dto);
-    }
-
-    @Post('/listen/:id')
-    listen(@Param('id') id: ObjectId) {
-        return this.trackService.listen(id)
-    }
+  @Post('/listen/:id')
+  listen(@Param('id') id: ObjectId) {
+    return this.trackService.listen(id);
+  }
 }
