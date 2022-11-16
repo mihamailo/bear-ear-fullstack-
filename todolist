@@ -1,4 +1,5 @@
 Refactoring 
+    in MainLayout should take prop title and concat it like this: 'Bear Ear -  *Page name that given from prop*'
     Implements styled components
     Remove base URL(use axios API instead)
     Clean up components folder(normal sorting pls)
@@ -11,4 +12,3 @@ Refactoring
 5. Albums
 6. Error handling
 7. Image preview
-8. in MainLayout should take prop title and concat it like this: 'Bear Ear -  *Page name that given from prop*'
