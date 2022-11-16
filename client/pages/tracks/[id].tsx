@@ -1,14 +1,14 @@
 import { Button, Grid } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
 import React, { useState } from 'react'
-import MainLayout from '../../layouts/MainLayout';
-import s from '../../styles/TrackPage.module.scss';
+import MainLayout from 'layouts/MainLayout';
+import s from 'styles/TrackPage.module.scss';
 import { TextField } from '@material-ui/core';
 import { GetServerSideProps } from 'next';
-import { baseUrl } from '../../components/baseURL';
+import { baseUrl } from 'utils/bearApi';
 import axios from 'axios';
-import { ITrack } from '../../types/track';
-import { useInput } from '../../hooks/useInput';
+import { ITrack } from 'types/track';
+import { useInput } from 'hooks/useInput';
 
 const PageTrack = ({ serverTrack }) => {
     const [track, setTrack] = useState<ITrack>(serverTrack)

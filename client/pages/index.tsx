@@ -2,8 +2,8 @@ import { Box, Grid } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
-import MainLayout from "../layouts/MainLayout";
-import gif from "../assets/XOsX.gif";
+import MainLayout from "layouts/MainLayout";
+import gif from "assets/XOsX.gif";
 
 export default function index() {
   const router = useRouter();

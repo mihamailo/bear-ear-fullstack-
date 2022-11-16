@@ -1,13 +1,13 @@
 import { Box, Button, Grid } from '@material-ui/core';
 import React, { useState } from 'react'
-import MainLayout from '../../layouts/MainLayout';
-import StepWrapper from '../../components/StepWrapper';
+import MainLayout from 'layouts/MainLayout';
+import StepWrapper from 'components/StepWrapper';
 import { TextField } from '@material-ui/core';
-import FileUpload from '../../components/FileUpload';
-import { useInput } from '../../hooks/useInput';
+import FileUpload from 'components/FileUpload';
+import { useInput } from 'hooks/useInput';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
-import { baseUrl } from '../../components/baseURL';
+import { baseUrl } from 'utils/bearApi';
 
 function create() {
     const [activeStep, setActiveStep] = useState(0)

@@ -1,6 +1,6 @@
-import { trackReducer } from './trackReudcer';
+import { trackReducer } from 'store/reducers/trackReudcer';
 import { combineReducers } from "redux";
-import { playerReducer } from './playerReducer';
+import { playerReducer } from 'store/reducers/playerReducer';
 import { HYDRATE } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({

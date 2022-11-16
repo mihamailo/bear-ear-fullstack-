@@ -1,11 +1,11 @@
 import { Grid, IconButton } from "@material-ui/core";
 import { Pause, PlayArrow, VolumeOff, VolumeUp } from "@material-ui/icons";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import s from "../styles/Player.module.scss";
+import s from "styles/Player.module.scss";
 import TrackProgress from "components/TrackProgress";
-import { useTypedSelector } from "../hooks/useTypedSelector";
-import { useActions } from "../hooks/useAction";
-import { baseUrl } from "./baseURL";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { useActions } from "hooks/useAction";
+import { baseUrl } from "utils/bearApi";
 
 const Player = () => {
   const { pause, volume, active, duration, currentTime, audio } =

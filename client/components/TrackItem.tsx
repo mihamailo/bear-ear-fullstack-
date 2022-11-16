@@ -1,18 +1,18 @@
 import React from 'react';
-import { ITrack } from '../types/track';
-import s from '../styles/TrackItem.module.scss';
+import { ITrack } from 'types/track';
+import s from 'styles/TrackItem.module.scss';
 import IconButton from '@material-ui/core/IconButton';
 import { Card, Grid } from '@material-ui/core';
 import { Pause, PlayArrow } from '@material-ui/icons';
 import { useRouter } from 'next/dist/client/router';
 import { Delete } from '@material-ui/icons';
-import { useActions } from '../hooks/useAction';
-import { baseUrl } from './baseURL';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import useFormat from '../hooks/useFormat'
+import { useActions } from 'hooks/useAction';
+import { baseUrl } from 'utils/bearApi';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import useFormat from 'hooks/useFormat'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { fetchTracks } from '../store/actions-creator/tracks';
+import { fetchTracks } from 'store/actions-creator/tracks';
 
 interface TrackItemProps {
     track: ITrack;

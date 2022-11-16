@@ -1,5 +1,5 @@
 import React from 'react'
-import useFormat from '../hooks/useFormat'
+import useFormat from 'hooks/useFormat'
 
 interface TrackProgressProps {
     left: number;

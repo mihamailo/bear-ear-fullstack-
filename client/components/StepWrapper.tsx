@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { Card, Container, Grid, Step, StepLabel, Stepper } from "@material-ui/core";
-import s from '../styles/StepWrapper.module.scss'
+import s from 'styles/StepWrapper.module.scss'
 interface StepWrapperProps {
     activeStep: number;
+    children: any;
 }
 const steps = ['Track info', 'Set label', 'Load track']
 

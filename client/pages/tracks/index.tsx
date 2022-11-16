@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import MainLayout from '../../layouts/MainLayout';
+import React, { useState } from 'react'
+import MainLayout from 'layouts/MainLayout';
 import { Button, Card, Grid, TextField } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
-import TrackList from '../../components/TrackList';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { wrapper } from '../../store';
-import { fetchTracks, searchTracks } from '../../store/actions-creator/tracks';
-import { NextThunkDispatch } from '../../store/index';
+import TrackList from 'components/TrackList';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { wrapper } from 'store';
+import { fetchTracks, searchTracks } from 'store/actions-creator/tracks';
+import { NextThunkDispatch } from 'store/index';
 import { useDispatch } from 'react-redux';
 
 

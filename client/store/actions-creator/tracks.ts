@@ -1,7 +1,7 @@
-import { TrackAction, TrackActionTypes } from './../../types/track';
+import { TrackAction, TrackActionTypes } from 'types/track';
 import { Dispatch } from "react"
 import axios from 'axios'
-import { baseUrl } from '../../components/baseURL';
+import { baseUrl } from 'utils/bearApi';
 
 
 export const fetchTracks = () => {

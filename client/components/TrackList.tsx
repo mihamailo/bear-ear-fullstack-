@@ -1,7 +1,7 @@
-import { ITrack } from '../types/track';
+import { ITrack } from 'types/track';
 import { Grid } from '@material-ui/core';
-import TrackItem from './TrackItem';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import TrackItem from 'components/TrackItem';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 
 interface TrackListProps {
     tracks: ITrack[],

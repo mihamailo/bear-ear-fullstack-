@@ -1,9 +1,9 @@
 import { Container } from "@material-ui/core";
 import React, { PropsWithChildren } from "react";
-import Navbar from "../components/Navbar";
-import Player from "../components/Player";
+import Navbar from "components/Navbar";
+import Player from "components/Player";
 import Head from "next/head";
-import { FCWithChildren } from "../types/global";
+import { FCWithChildren } from "types/global";
 
 interface MainLayoutProps extends PropsWithChildren {
   title?: string;
