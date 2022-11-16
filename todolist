@@ -1,7 +1,14 @@
-1. Прелоадер при запросах
-2. Запоминать current time
-3. Не ставить трек на паузу при переходе на страницу трека
-4. По пацански все стилизовать 
-5. Реализовать альбомы
-6. Обработка ошибок при неправильной загрузке трека
-7. Превью изображения, название трека
+Refactoring 
+    Implements styled components
+    Remove base URL(use axios API instead)
+    Clean up components folder(normal sorting pls)
+    Static generation of track detail page
+
+1. Preloader on requests
+2. Store current time on backend 
+3. Dont stop track after routing(rewrite player on context or use another state manager)
+4. Normal design of main page
+5. Albums
+6. Error handling
+7. Image preview
+8. in MainLayout should take prop title and concat it like this: 'Bear Ear -  *Page name that given from prop*'
