@@ -4,12 +4,12 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import s from "styles/Player.module.scss";
 import TrackProgress from "components/TrackProgress";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { useActions } from "hooks/useAction";
 import { baseUrl } from "utils/bearApi";
+import {playerSlice} from 'store/reducers/playerSlice';
 
 const Player = () => {
   const { pause, volume, active, duration, currentTime, audio } =
-    useTypedSelector((state) => state.player);
+    useTypedSelector(state => state.playerSliceReducer);
   const {
     pauseTrack,
     playTrack,
@@ -17,7 +17,7 @@ const Player = () => {
     setCurrentTime,
     setDuration,
     setAudio,
-  } = useActions();
+  } = playerSlice.actions;
   const [volumeOff, setVolumeOff] = useState<boolean>(true);
   const isInitialMount = useRef(true);
 

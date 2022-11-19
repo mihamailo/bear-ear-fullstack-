@@ -1,14 +1,9 @@
-import { Context, createWrapper, MakeStore } from "next-redux-wrapper";
-import { AnyAction, applyMiddleware, createStore, Store } from "redux";
-import thunk, { ThunkDispatch } from "redux-thunk";
-import { reducer, RootState } from "store/reducers";
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from "store/reducers";
 
-console.log(reducer);
-
-const makeStore: MakeStore<Store<RootState>>
-    = (context: Context) => createStore(reducer, applyMiddleware(thunk));
-
-export const wrapper
-    = createWrapper<Store<RootState>>(makeStore, { debug: true });
-
-export type NextThunkDispatch = ThunkDispatch<RootState, void, AnyAction>
+export default function getStore() {
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+  return store;
+}

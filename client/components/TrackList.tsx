@@ -9,7 +9,7 @@ interface TrackListProps {
 
 
 const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
-    const { active, pause } = useTypedSelector(state => state.player)
+    const { active, pause } = useTypedSelector(state => state.playerSliceReducer);
 
     return (
         <Grid style={{ marginTop: '30px' }}>
