@@ -22,14 +22,12 @@ interface TrackItemProps {
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) => {
     const router = useRouter()
-    const { audio, currentTime, duration } = useTypedSelector(state => state.player)
+    const { audio, currentTime, duration } = useTypedSelector(state => state.playerSliceReducer)
     const { setActive, pauseTrack, playTrack, setAudio } = playerSlice.actions;
     const dispatch = useDispatch()
     const play = (e) => {
         e.stopPropagation()
         if (active) {
-            console.log('active');
-
             if (pause) {
                 playTrack()
                 audio.play()

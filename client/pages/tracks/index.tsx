@@ -11,14 +11,14 @@ import getStore from 'store';
 
 
 export default function index() {
-    const router = useRouter()
-    const { tracks, tracksError } = useTypedSelector(state => state.trackSliceReducer);
+    const router = useRouter();
+    const { tracksError } = useTypedSelector(state => state.trackSliceReducer);
     const [query, setQuery] = useState<string>('');
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch();
 
     const search = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value)
+        setQuery(e.target.value);
         if (timer) {
             clearTimeout(timer)
         }
@@ -28,13 +28,15 @@ export default function index() {
     }
 
     if(tracksError) {
-        return <MainLayout title={'Bear Ear - Track List'}>
-            <div className='title'>При попытке загрузить треки произошла ошибка.</div>
-        </MainLayout>
+        return (
+            <MainLayout title={'Bear Ear - Track List'}>
+                <div className='title'>При попытке загрузить треки произошла ошибка.</div>
+            </MainLayout>
+        );
     }
 
     return (
-        <MainLayout>
+        <MainLayout title={'Bear Ear - Track List'}>
             <Grid container>
                 <Card className='card'>
                     <Grid container justifyContent="space-between" alignItems="center">
@@ -51,11 +53,11 @@ export default function index() {
                         onChange={search}
                         label='Search by track name'
                     />
-                    <TrackList tracks={tracks} />
+                    <TrackList />
                 </Card>
             </Grid>
         </MainLayout>
-    )
+    );
 }
 
 export async function getServerSideProps() {
@@ -64,7 +66,7 @@ export async function getServerSideProps() {
     await dispatch(getTracks());
     return {
         props: {
-            intialState: store.getState(),
+            initialState: store.getState(),
         },
     };
 }

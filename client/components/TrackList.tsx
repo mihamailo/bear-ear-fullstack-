@@ -3,13 +3,9 @@ import { Grid } from '@material-ui/core';
 import TrackItem from 'components/TrackItem';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 
-interface TrackListProps {
-    tracks: ITrack[],
-}
-
-
-const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
+const TrackList = () => {
     const { active, pause } = useTypedSelector(state => state.playerSliceReducer);
+    const { tracks } = useTypedSelector(state => state.trackSliceReducer);
 
     return (
         <Grid style={{ marginTop: '30px' }}>

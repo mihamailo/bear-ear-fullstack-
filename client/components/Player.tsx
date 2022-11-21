@@ -8,8 +8,7 @@ import { baseUrl } from "utils/bearApi";
 import {playerSlice} from 'store/reducers/playerSlice';
 
 const Player = () => {
-  const { pause, volume, active, duration, currentTime, audio } =
-    useTypedSelector(state => state.playerSliceReducer);
+  const { pause, volume, active, duration, currentTime, audio } = useTypedSelector(state => state.playerSliceReducer);
   const {
     pauseTrack,
     playTrack,

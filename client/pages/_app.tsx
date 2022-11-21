@@ -6,7 +6,7 @@ import getStore from '../store/index';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <Provider store={getStore()}>
+    <Provider store={getStore(pageProps.initialState)}>
       <Component {...pageProps} />
     </Provider>
   );
