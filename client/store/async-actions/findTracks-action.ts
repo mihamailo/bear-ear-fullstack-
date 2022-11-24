@@ -3,12 +3,8 @@ import {findTracksRequest} from 'utils/bearApi';
 
 export const findTracks = createAsyncThunk(
   'playerSlice/findTracks',
-  async (query) => {
-    let data;
-    await findTracksRequest(query)
-    .then((res) => {
-      data = res.data;
-    });
+  async (query: string) => {
+    const { data } = await findTracksRequest(query);
     return data;
   }
 );

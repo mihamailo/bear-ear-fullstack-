@@ -5,7 +5,7 @@ import s from "styles/Player.module.scss";
 import TrackProgress from "components/TrackProgress";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { baseUrl } from "utils/bearApi";
-import {playerSlice} from 'store/reducers/playerSlice';
+import { playerSlice } from 'store/reducers/playerSlice';
 
 const Player = () => {
   const { pause, volume, active, duration, currentTime, audio } = useTypedSelector(state => state.playerSliceReducer);

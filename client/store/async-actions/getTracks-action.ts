@@ -4,11 +4,7 @@ import {getTracksRequest} from 'utils/bearApi';
 export const getTracks = createAsyncThunk(
   'trackSlice/getTracks',
   async () => {
-    let data;
-    await getTracksRequest()
-    .then((res) => {
-      data = res.data;
-    });
+    const { data } = await getTracksRequest();
     return data;
   }
 );

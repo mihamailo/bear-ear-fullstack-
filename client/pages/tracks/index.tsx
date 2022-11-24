@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import MainLayout from 'layouts/MainLayout';
-import { Button, Card, Grid, TextField } from '@material-ui/core';
+import { Button, Card, Grid, TextField, Box } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
 import TrackList from 'components/TrackList';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -23,14 +23,16 @@ export default function index() {
             clearTimeout(timer)
         }
         setTimer(setTimeout(() => {
-            dispatch(findTracks());
+            dispatch(findTracks(query));
         }, 500))
     }
 
     if(tracksError) {
         return (
             <MainLayout title={'Bear Ear - Track List'}>
-                <div className='title'>При попытке загрузить треки произошла ошибка.</div>
+                <Box>
+                    <p className='title'>При попытке загрузить треки произошла ошибка.</p>
+                </Box>
             </MainLayout>
         );
     }
@@ -62,7 +64,7 @@ export default function index() {
 
 export async function getServerSideProps() {
     const store = getStore();
-    const dispatch = store.dispatch;
+    const { dispatch } = store;
     await dispatch(getTracks());
     return {
         props: {

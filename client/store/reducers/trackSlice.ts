@@ -12,7 +12,11 @@ const initialState = {
 export const trackSlice = createSlice({
     name: 'trackSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        deleteTrack: (state, action) => {
+            state.tracks.splice(action.payload, 1);
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(findTracks.pending, state => {

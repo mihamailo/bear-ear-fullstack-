@@ -9,7 +9,7 @@ const TrackList = () => {
 
     return (
         <Grid style={{ marginTop: '30px' }}>
-            {tracks.map(track => {
+            {tracks && tracks.map(track => {
 
                 return (<TrackItem
                     key={track._id}

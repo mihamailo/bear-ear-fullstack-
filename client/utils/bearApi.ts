@@ -1,21 +1,23 @@
 import axios from 'axios'
 
-export const baseUrl: string = 'http://localhost:8080';
-const tracksUrl:string = `${baseUrl}/tracks`; 
-const findTracksUrl:string = `${baseUrl}/tracks/search?query=`;
+export const baseUrl = 'http://localhost:8080';
+const tracksUrl = `${baseUrl}/tracks`; 
+const findTracksUrl = `${baseUrl}/tracks/search?query=`;
 
-export function getTracksRequest() {
-  return axios.get(tracksUrl)
-  .then((res) => {
-    console.log(res);
+export async function getTracksRequest() {
+  try {
+    const res = await axios.get(tracksUrl);
     return res;
-  });
+  } catch(error) {
+    console.log(error);
+  }
 }
 
-export function findTracksRequest(query) {
-  return axios.get(`${findTracksUrl}${query}`)
-  .then((res) => {
-    console.log(res);
+export async function findTracksRequest(query) {
+  try {
+    const res = await axios.get(`${findTracksUrl}${query}`);
     return res;
-  });
+  } catch(error) {
+    console.log(error);
+  }
 }

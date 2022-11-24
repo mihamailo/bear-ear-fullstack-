@@ -11,8 +11,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import useFormat from 'hooks/useFormat'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { getTracks } from 'store/async-actions/getTracks-action';
-import {playerSlice} from 'store/reducers/playerSlice';
+import { playerSlice } from 'store/reducers/playerSlice';
+import { trackSlice } from 'store/reducers/trackSlice';
 
 interface TrackItemProps {
     track: ITrack;
@@ -24,6 +24,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) =
     const router = useRouter()
     const { audio, currentTime, duration } = useTypedSelector(state => state.playerSliceReducer)
     const { setActive, pauseTrack, playTrack, setAudio } = playerSlice.actions;
+    const { deleteTrack } = trackSlice.actions;
     const dispatch = useDispatch()
     const play = (e) => {
         e.stopPropagation()
@@ -41,9 +42,9 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) =
     }
 
     const deleteItem = async (e) => {
-        e.stopPropagation()
-        await axios.delete(`${baseUrl}/tracks/` + track._id)
-        await dispatch(getTracks())
+        e.stopPropagation();
+        await axios.delete(`${baseUrl}/tracks/` + track._id);
+        dispatch(deleteTrack(track._id));
     }
 
     return (

@@ -1,4 +1,4 @@
-import trackSliceReducer from 'store/reducers/trackReudcer';
+import trackSliceReducer from 'store/reducers/trackSlice';
 import playerSliceReducer from 'store/reducers/playerSlice';
 
 export const rootReducer = {
