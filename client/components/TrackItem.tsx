@@ -6,13 +6,13 @@ import { Card, Grid } from '@material-ui/core';
 import { Pause, PlayArrow } from '@material-ui/icons';
 import { useRouter } from 'next/dist/client/router';
 import { Delete } from '@material-ui/icons';
-import { useActions } from 'hooks/useAction';
 import { baseUrl } from 'utils/bearApi';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useFormat from 'hooks/useFormat'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { fetchTracks } from 'store/actions-creator/tracks';
+import { playerSlice } from 'store/reducers/playerSlice';
+import { trackSlice } from 'store/reducers/trackSlice';
 
 interface TrackItemProps {
     track: ITrack;
@@ -22,14 +22,13 @@ interface TrackItemProps {
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) => {
     const router = useRouter()
-    const { audio, currentTime, duration } = useTypedSelector(state => state.player)
-    const { setActive, pauseTrack, playTrack, setAudio } = useActions()
+    const { audio, currentTime, duration } = useTypedSelector(state => state.playerSliceReducer)
+    const { setActive, pauseTrack, playTrack, setAudio } = playerSlice.actions;
+    const { deleteTrack } = trackSlice.actions;
     const dispatch = useDispatch()
     const play = (e) => {
         e.stopPropagation()
         if (active) {
-            console.log('active');
-
             if (pause) {
                 playTrack()
                 audio.play()
@@ -43,9 +42,9 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, pause, active = false }) =
     }
 
     const deleteItem = async (e) => {
-        e.stopPropagation()
-        await axios.delete(`${baseUrl}/tracks/` + track._id)
-        await dispatch(fetchTracks())
+        e.stopPropagation();
+        await axios.delete(`${baseUrl}/tracks/` + track._id);
+        dispatch(deleteTrack(track._id));
     }
 
     return (

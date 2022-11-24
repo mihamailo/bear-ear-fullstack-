@@ -1,40 +1,44 @@
 import React, { useState } from 'react'
 import MainLayout from 'layouts/MainLayout';
-import { Button, Card, Grid, TextField } from '@material-ui/core';
+import { Button, Card, Grid, TextField, Box } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
 import TrackList from 'components/TrackList';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { wrapper } from 'store';
-import { fetchTracks, searchTracks } from 'store/actions-creator/tracks';
-import { NextThunkDispatch } from 'store/index';
+import { getTracks } from 'store/async-actions/getTracks-action';
+import { findTracks } from 'store/async-actions/findTracks-action';
 import { useDispatch } from 'react-redux';
+import getStore from 'store';
 
 
-function index() {
-    const router = useRouter()
-    const { tracks, error } = useTypedSelector(state => state.track)
-    const [query, setQuery] = useState<string>('')
-    const [timer, setTimer] = useState(null)
-    const dispatch = useDispatch() as NextThunkDispatch
+export default function index() {
+    const router = useRouter();
+    const { tracksError } = useTypedSelector(state => state.trackSliceReducer);
+    const [query, setQuery] = useState<string>('');
+    const [timer, setTimer] = useState(null);
+    const dispatch = useDispatch();
 
     const search = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value)
+        setQuery(e.target.value);
         if (timer) {
             clearTimeout(timer)
         }
         setTimer(setTimeout(() => {
-            dispatch(searchTracks(e.target.value))
+            dispatch(findTracks(query));
         }, 500))
     }
 
-    if (error) {
-        return <MainLayout title={'Bear Ear - Track List'}>
-            <div className='title'>{error}</div>
-        </MainLayout>
+    if(tracksError) {
+        return (
+            <MainLayout title={'Bear Ear - Track List'}>
+                <Box>
+                    <p className='title'>При попытке загрузить треки произошла ошибка.</p>
+                </Box>
+            </MainLayout>
+        );
     }
 
     return (
-        <MainLayout>
+        <MainLayout title={'Bear Ear - Track List'}>
             <Grid container>
                 <Card className='card'>
                     <Grid container justifyContent="space-between" alignItems="center">
@@ -51,20 +55,20 @@ function index() {
                         onChange={search}
                         label='Search by track name'
                     />
-                    <TrackList tracks={tracks} />
+                    <TrackList />
                 </Card>
             </Grid>
         </MainLayout>
-    )
+    );
 }
 
-export default index;
-
-export const getServerSideProps
-    = wrapper.getServerSideProps((store) => async () => {
-        const dispatch = store.dispatch as NextThunkDispatch;
-        await dispatch(fetchTracks());
-
-        return { props: {} }
-    }
-    );
+export async function getServerSideProps() {
+    const store = getStore();
+    const { dispatch } = store;
+    await dispatch(getTracks());
+    return {
+        props: {
+            initialState: store.getState(),
+        },
+    };
+}
